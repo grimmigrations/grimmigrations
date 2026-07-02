@@ -1,150 +1,44 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
+// Smooth Scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+        e.preventDefault();
 
-body{
-    background:#f5f7fb;
-    color:#333;
-    line-height:1.6;
-}
+        document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth"
+        });
+    });
+});
 
-header{
-    position:fixed;
-    width:100%;
-    top:0;
-    left:0;
-    background:#003366;
-    color:#fff;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 8%;
-    z-index:1000;
-}
+// Navbar Shadow
+window.addEventListener("scroll", function () {
+    const navbar = document.querySelector(".navbar");
 
-.logo{
-    font-size:28px;
-    font-weight:700;
-}
+    if (window.scrollY > 50) {
+        navbar.style.background = "#041d45";
+        navbar.style.boxShadow = "0 10px 30px rgba(0,0,0,.3)";
+    } else {
+        navbar.style.background = "#072c63";
+        navbar.style.boxShadow = "0 5px 20px rgba(0,0,0,.2)";
+    }
+});
 
-.logo span{
-    color:#00c6ff;
-}
+// Counter Animation
+const counters = document.querySelectorAll(".card h3");
 
-nav a{
-    color:#fff;
-    text-decoration:none;
-    margin:0 15px;
-    transition:.3s;
-}
+counters.forEach(counter => {
+    const updateCounter = () => {
 
-nav a:hover{
-    color:#00c6ff;
-}
+        const target = +counter.innerText.replace("+","");
 
-.btn{
-    background:#25D366;
-    color:#fff;
-    text-decoration:none;
-    padding:10px 22px;
-    border-radius:30px;
-    font-weight:600;
-}
+        const count = +counter.innerText.replace("+","");
 
-.hero{
-    height:100vh;
-    background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url("https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80");
-    background-size:cover;
-    background-position:center;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    color:#fff;
-}
+        const speed = 50;
 
-.hero h1{
-    font-size:58px;
-}
+        if(count < target){
+            counter.innerText = count + 1 + "+";
+            setTimeout(updateCounter,speed);
+        }
+    }
 
-.hero p{
-    font-size:22px;
-    margin:20px 0;
-}
-
-.hero-btn{
-    background:#ff9800;
-    color:#fff;
-    padding:14px 35px;
-    text-decoration:none;
-    border-radius:30px;
-    font-weight:bold;
-}
-
-section{
-    padding:90px 8%;
-}
-
-h2{
-    text-align:center;
-    margin-bottom:40px;
-    color:#003366;
-}
-
-.service-box,
-.countries{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-}
-
-.card,
-.countries div{
-    background:#fff;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-    text-align:center;
-    transition:.3s;
-}
-
-.card:hover,
-.countries div:hover{
-    transform:translateY(-8px);
-}
-
-.card i{
-    font-size:45px;
-    color:#0077ff;
-    margin-bottom:15px;
-}
-
-footer{
-    background:#003366;
-    color:#fff;
-    text-align:center;
-    padding:25px;
-}
-
-@media(max-width:768px){
-
-header{
-flex-direction:column;
-}
-
-nav{
-margin:15px 0;
-}
-
-.hero h1{
-font-size:36px;
-}
-
-.hero p{
-font-size:18px;
-}
-
-}
+    updateCounter();
+});
